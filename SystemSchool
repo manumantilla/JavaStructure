@@ -100,3 +100,97 @@ public class console {
 		}
 	}
 }
+
+// P R O D U C T  M A N A G M E N T
+
+package reto1;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class productManagment {
+	//Va a tener como tipo, product q es un objeto
+	List<product> listofProduct;
+	//C O N S T R U C T O R
+	public productManagment() {
+		//Estoy declarando donde guardar todos los productos
+		this.listofProduct = new ArrayList<>();
+	}
+		/*Metodos que nos añaden a la lista 
+		* Que acabamos de crear 
+		*es decir esta clase va a recibir todos los datos para
+		*entregarselos a los metodos
+		*/
+		
+		//Add
+		public int addProduct(product p) {
+			this.listofProduct.add(p);
+			return count();
+		}
+		//How many products?
+		public int count() {
+			
+			return this.listofProduct.size();	
+		}
+		//Search a product
+		public product getProduct(int index) {
+			if (index < 0 || index >= count()) {
+				return null;
+			}
+			return this.listofProduct.get(index);
+		}
+		//DELETE
+		public boolean removeProduct(int id) {
+			int index = -1;
+			for (int i =0, n = count(); i<n; i++) {
+				 if(this.listofProduct.get(i).getId() == id) {
+					 index = i;
+					 break;
+				 }
+			}
+			if(index != -1) {
+				//Este remove es para eliminar el id el precio y el nombre
+				this.listofProduct.remove(index);
+				return true;
+			}
+			return false;
+		}
+		
+		
+		//delete only the price
+}
+
+// C O N S O L E
+package reto1;
+
+public class product {
+	int id;
+	String name;
+	float price;
+	//C O N S T R U C T O R
+	public product(int id, String name, float price) {
+		this.id=id;
+		this.name=name;
+		this.price=price;
+		
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public float getPrice() {
+		return price;
+	}
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+}
