@@ -1,0 +1,102 @@
+package reto1;
+
+import java.util.Scanner;
+/*
+ *Esta clase lo q hace es mostrar la inf y recoger la inf para llamar al objeto
+ *de productManagment, y q este vaya llenando el array
+ * */
+
+public class console {
+	Scanner sc;
+	productManagment pm;
+	
+	//C O N S T R U C T O R
+	public console(){
+		this.sc = new Scanner(System.in);
+		this.pm = new productManagment();	}
+	//Menu
+	public int menu() {
+		System.out.println("----------menu----------");
+		System.out.println("1.  ADD PRODUCT");
+		System.out.println("2.  SHOW ALL PRODUCT");
+		System.out.println("3. REMOVE PRODUCT");
+		System.out.println("Enter:");
+		int choice = sc.nextInt();
+		return choice;
+	}
+	public void start() {
+		//A esa variable choice le asigno el return del menu q en este caso ese return
+		//es la opcion
+		int choice = menu();
+		while(true) {
+			switch (choice) {
+			case 0: 
+				System.exit(0);
+				break;
+			
+			case 1:
+				addProductConsole();
+				break;
+			case 2:
+				showAll();
+				break;
+			case 3:
+				removeProduct();
+				break;
+			}
+		}
+	}
+	
+	public void addProductConsole() {
+		String name;
+		/*System.out.println("Enter the new id");
+		int id = sc.nextInt();
+		*/
+		System.out.println("Id");
+		int id = sc.nextInt();
+
+		
+		System.out.println("price");
+		float price = sc.nextFloat();
+		sc.nextLine();
+		
+		System.out.println("Enter  name:");
+		name = sc.nextLine();
+		//Call the object
+		product p = new product(id,name,price);
+		//Agregar el objeto "p" al array
+		this.pm.addProduct(p);
+		start();
+		
+	}
+
+	public void showAll() {
+		System.out.println("|-------ALL PRODUCT------||");
+		System.out.println("|ID \t name \t price     ||");
+		System.out.println("|*-*-*-*-*-**-*-*-*-*-*-*-||");
+		
+		//Con un for recorremos la lista que hemos creado
+		//y en la cual esta nuestro objeto y que al mismo tiempo este
+		//tiene el id name y price
+		for (int i=0; i<this.pm.count(); i++) {
+			//Se llama al objeto P, este se obtiene a traves de la funcion getProduct
+			//
+			product p = this.pm.getProduct(i);
+			System.out.println(p.getId()+"\t"+p.getName()+"\t"+p.getPrice());
+			
+		}
+		start();
+	}
+	
+	public void removeProduct() {
+		System.out.println("Enter the id of product for delete");
+		int id = sc.nextInt();
+		boolean result = this.pm.removeProduct(id);
+		if(result) {
+			System.out.println("Product was removed :)");
+		}
+		else {
+			System.out.println("wasnt removed son fo a bitch write right /t the id");
+		}
+	}
+}
